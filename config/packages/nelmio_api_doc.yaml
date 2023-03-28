@@ -1,0 +1,119 @@
+nelmio_api_doc:
+    areas: # to filter documented areas
+        path_patterns:
+            - ^/api(?!/doc$)
+
+    documentation:
+        info:
+            title: EventSauceBundle demo api
+            version: 1.0.0
+        servers:
+            -   url: http://eventsauce:8888
+                description: local
+        tags:
+            -   name: cart
+            -   name: order
+        paths:
+            /api/cart/start-shopping:
+                post:
+                    tags:
+                        - cart
+                    operationId: createCart
+                    responses:
+                        '201':
+                            description: Created
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/IdResponse'
+            /api/cart/add-item:
+                put:
+                    tags:
+                        - cart
+                    operationId: cartAddItem
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/AddCartItemRequest'
+                        required: true
+                    responses:
+                        '204':
+                            description: No content
+
+            /api/order/checkout:
+                post:
+                    tags:
+                        - order
+                    operationId: startOrder
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/StartOrderRequest'
+                        required: true
+                    responses:
+                        '201':
+                            description: Created
+                            content:
+                                application/json:
+                                    schema:
+                                        $ref: '#/components/schemas/IdResponse'
+            /api/order/place:
+                put:
+                    tags:
+                        - order
+                    operationId: placeOrder
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    $ref: '#/components/schemas/PlaceOrderRequest'
+                        required: true
+                    responses:
+                        '204':
+                            description: No content
+        components:
+            schemas:
+                IdResponse:
+                    type: object
+                    properties:
+                        id:
+                            type: string
+                AddCartItemRequest:
+                    type: object
+                    properties:
+                        cartId:
+                            type: string
+                            nullable: true
+                            example: ee77c384-f732-4148-b137-28a5927df676
+                        itemName:
+                            type: string
+                            example: foo
+                        itemPrice:
+                            type: integer
+                            format: int32
+                            example: 2
+                        itemQuantity:
+                            type: integer
+                            format: int32
+                            example: 1
+                StartOrderRequest:
+                    type: object
+                    properties:
+                        orderCartId:
+                            type: string
+                PlaceOrderRequest:
+                    type: object
+                    properties:
+                        orderId:
+                            type: string
+                        purchaserFirstName:
+                            type: string
+                            example: Johny
+                        purchaserLastName:
+                            type: string
+                            example: Bravo
+                        purchaserAddress:
+                            type: string
+                            example: foo bar baz

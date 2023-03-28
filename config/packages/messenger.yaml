@@ -1,0 +1,35 @@
+framework:
+    messenger:
+        transports:
+            message_outbox: 'sync://'
+            high_priority:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: high
+                    queues:
+                        high_priority: ~
+            normal_priority:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    exchange:
+                        name: normal
+                    queues:
+                        normal_priority: ~
+        default_bus: commandBus
+        buses:
+            commandBus: []
+            queryBus: []
+            eventBus:
+                default_middleware: false
+                middleware:
+                    - 'add_bus_name_stamp_middleware': ['eventBus']
+                    - 'dispatch_after_current_bus'
+                    - 'failed_message_processing_middleware'
+                    - 'send_message'
+                    - 'eventBus.handle_eventsauce_message'
+                    - 'handle_message': ['eventBus', true]
+        routing:
+             App\Shared\Application\Routing\HandleWithPriority: high_priority
+             App\Shared\Application\Routing\HandleAsStandard: normal_priority
+             App\Shared\Application\Routing\HandleByMessageOutbox: message_outbox

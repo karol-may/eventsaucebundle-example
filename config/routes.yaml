@@ -1,5 +1,13 @@
-controllers:
+cart_api:
     resource:
-        path: ../src/Controller/
-        namespace: App\Controller
+        path: ../src/Cart/Api
+        namespace: App\Cart\Api
     type: attribute
+    prefix: '/api'
+
+order_api:
+    resource:
+        path: ../src/Order/Api
+        namespace: App\Order\Api
+    type: attribute
+    prefix: '/api'

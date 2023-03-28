@@ -1,0 +1,45 @@
+andreo_event_sauce:
+    clock:
+        timezone: Europe/Warsaw
+
+    message_dispatcher:
+        sync_bus:
+            type:
+                sync: true
+        event_bus:
+            acl: true
+            type:
+                messenger:
+                    bus: eventBus
+    acl: true
+
+    upcaster:
+        trigger: after_unserialize
+
+    message_outbox:
+        logger: monolog.logger.message_outbox
+
+    event_dispatcher:
+        message_outbox: true
+
+    snapshot:
+        repository: true
+        versioned: true
+        conditional: true
+
+    migration_generator: true
+
+    aggregates:
+        cart:
+            class: App\Cart\Domain\Cart
+            message_outbox: true
+            upcaster: true
+            snapshot:
+                conditional:
+                    every_n_event:
+                        number: 10
+        order:
+            class: App\Order\Domain\Order
+            message_outbox: true
+            upcaster: true
+

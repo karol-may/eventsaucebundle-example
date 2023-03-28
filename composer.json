@@ -1,20 +1,36 @@
 {
     "type": "project",
-    "license": "proprietary",
-    "minimum-stability": "stable",
-    "prefer-stable": true,
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": false,
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "andreo/eventsauce-aggregate": "dev-main",
+        "andreo/eventsauce-bundle": "dev-main",
+        "andreo/eventsauce-messenger": "dev-main",
+        "andreo/eventsauce-migration-generator": "dev-main",
+        "andreo/eventsauce-outbox": "dev-main",
+        "andreo/eventsauce-snapshotting": "dev-main as 3.2",
+        "andreo/eventsauce-upcasting": "dev-main",
+        "doctrine/doctrine-bundle": "2.9.x-dev",
+        "doctrine/doctrine-migrations-bundle": "3.3.x-dev",
+        "doctrine/orm": "2.15.x-dev",
+        "nelmio/api-doc-bundle": "4.x-dev",
+        "ramsey/uuid-doctrine": "dev-main",
+        "symfony/amqp-messenger": "6.2.*",
+        "symfony/asset": "6.2.*",
         "symfony/console": "6.2.*",
         "symfony/dotenv": "6.2.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.2.*",
+        "symfony/monolog-bundle": "3.x-dev",
         "symfony/runtime": "6.2.*",
-        "symfony/yaml": "6.2.*"
-    },
-    "require-dev": {
+        "symfony/twig-bundle": "6.2.*",
+        "symfony/yaml": "6.2.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {
